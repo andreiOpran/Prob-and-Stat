@@ -4,8 +4,8 @@ username: broski-corp
 account: broski-corp
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
-appId: 13871954
-bundleId: 9730439
+appId: 13875614
+bundleId: 9733138
 url: https://broski-corp.shinyapps.io/Exercitiul-2-PS/
 version: 1
 asMultiple: FALSE

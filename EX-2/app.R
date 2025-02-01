@@ -34,7 +34,7 @@ ui <- page_sidebar(
             conditionalPanel(
                 condition = "input.distributie == 'Normala (μ, σ²)'",
                 numericInput(inputId = "mu", label = "Media (μ):", value = 0),
-                numericInput(inputId = "sigma", label = "Varianta (σ):", value = 0.1, min = 0.1)
+                numericInput(inputId = "sigma", label = "Varianta (σ²):", value = 0.1, min = 0.1)
             ),
             conditionalPanel(
                 condition = "input.distributie == 'Exponentiala'",
@@ -140,28 +140,28 @@ server <- function(input, output) {
         else if(input$distributie == "Normala (μ, σ²)")
         {
             output$normala2Plot1 <- renderPlot({
-                X5 = rnorm(input$n, mean = input$mu, sd = (input$sigma * input$sigma)) # de verificat
+                X5 = rnorm(input$n, mean = input$mu, sd = sqrt(input$sigma)) 
                 X5 = X5
                 cdfEmpiric = ecdf(X5)
                 plot(cdfEmpiric, col = "#00bc83", lwd = 2, ylab = "F(x)", xlab = "x", main = paste0("Functia de repartitie pentru variabila aleatoare X distribuita normal N(μ = ", input$mu, ", σ² = ", input$sigma, ")"))
                 grid()
             })
             output$normala2Plot2 <- renderPlot({
-                X6 = rnorm(input$n, mean = input$mu, sd = (input$sigma * input$sigma)) # de verificat
+                X6 = rnorm(input$n, mean = input$mu, sd = sqrt(input$sigma))
                 X6 = 3 + 2 * X6
                 cdfEmpiric = ecdf(X6)
                 plot(cdfEmpiric, col = "#00bc83", lwd = 2, ylab = "F(x)", xlab = "x", main = paste0("Functia de repartitie pentru variabila aleatoare 3 + 2X distribuita normal N(μ = ", input$mu, ", σ² = ", input$sigma, ")"))
                 grid()
             })
             output$normala2Plot3 <- renderPlot({
-                X7 = rnorm(input$n, mean = input$mu, sd = (input$sigma * input$sigma)) # de verificat
+                X7 = rnorm(input$n, mean = input$mu, sd = sqrt(input$sigma)) 
                 X7 = X7 * X7
                 cdfEmpiric = ecdf(X7)
                 plot(cdfEmpiric, col = "#00bc83", lwd = 2, ylab = "F(x)", xlab = "x", main = paste0("Functia de repartitie pentru variabila aleatoare X² distribuita normal N(μ = ", input$mu, ", σ² = ", input$sigma, ")"))
                 grid()
             })
             output$normala2Plot4 <- renderPlot({
-                X8 = rnorm(input$n, mean = input$mu, sd = (input$sigma * input$sigma)) # de verificat
+                X8 = rnorm(input$n, mean = input$mu, sd = sqrt(input$sigma)) 
                 X8 = X8 * X8
                 x8 = cumsum(X8)
                 cdfEmpiric = ecdf(X8)

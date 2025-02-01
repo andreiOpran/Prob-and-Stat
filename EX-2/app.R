@@ -1,6 +1,7 @@
 library(shiny)
 library(bslib)
 
+# setare tema a graficelor
 thematic::thematic_shiny()
 
 ui <- page_sidebar(
@@ -9,6 +10,7 @@ ui <- page_sidebar(
     
     title = "Exercitiul 2 - Reprezentare grafica a functiilor de repartitie",
     
+    # creare navbar lateral pentru selectarea distributiei si introducerea parametrilor corespunzatori folosind conditionalPanel
     sidebar = sidebar(
         card(
             card_header("Selectati distributia si parametrii"),
@@ -57,7 +59,7 @@ ui <- page_sidebar(
     conditionalPanel(
         condition = "input.distributie == 'Normala (0, 1)'",
         navset_card_underline(
-            nav_panel("X", plotOutput("normala1Plot1")),
+            nav_panel("X", plotOutput("normala1Plot1")), # pentru fiecare nav_panel avem un plotOutput diferit pe care il vom trata in server
             nav_panel("3 + 2X", plotOutput("normala1Plot2")),
             nav_panel("X²", plotOutput("normala1Plot3")),
             nav_panel("∑(i = 1 → n)(Xᵢ)²", plotOutput("normala1Plot4"))
@@ -103,7 +105,8 @@ ui <- page_sidebar(
 
 server <- function(input, output) {
     
-    # prin intermediul Design Pattern-ului Observer, de fiecare data cand se schimba distributia, se apeleaza codul acesta din server
+    # prin intermediul Design Pattern-ului Observer, de fiecare data cand se schimba distributia, 
+    # se apeleaza codul acesta din server, dar numai pentru distributia selectata pentru o rulare optima si pentru a evita calcule neneceare
     observeEvent(input$distributie, {
         if (input$distributie == "Normala (0, 1)")
         {
@@ -123,15 +126,15 @@ server <- function(input, output) {
             })
             output$normala1Plot3 <- renderPlot({
                 X3 = rnorm(input$n, mean = 0, sd = 1)
-                X3 = X3 * X3
+                X3 = X3 * X3 # adaptare conform cerintei
                 cdfEmpiric = ecdf(X3)
                 plot(cdfEmpiric, col = "#00bc83", lwd = 2, ylab = "F(x)", xlab = "x", main = "Functia de repartitie pentru variabila aleatoare X² distribuita normal N(0, 1)")
                 grid()
             })
             output$normala1Plot4 <- renderPlot({
                 X4 = rnorm(input$n, mean = 0, sd = 1)
-                X4 = X4 * X4
-                X4 = cumsum(X4)
+                X4 = X4 * X4 # adaptare conform cerintei
+                X4 = cumsum(X4) # facem suma tuturor patratelor folosind cumsum()
                 cdfEmpiric = ecdf(X4)
                 plot(cdfEmpiric, col = "#00bc83", lwd = 2, ylab = "F(x)", xlab = "x", main = "Functia de repartitie pentru variabila aleatoare ∑(i = 1 → n)(Xᵢ)² distribuita normal N(0, 1)")
                 grid()
@@ -140,7 +143,7 @@ server <- function(input, output) {
         else if(input$distributie == "Normala (μ, σ²)")
         {
             output$normala2Plot1 <- renderPlot({
-                X5 = rnorm(input$n, mean = input$mu, sd = sqrt(input$sigma)) 
+                X5 = rnorm(input$n, mean = input$mu, sd = sqrt(input$sigma)) # generam n valori aleatoare din distributia normala N(μ, σ²)
                 X5 = X5
                 cdfEmpiric = ecdf(X5)
                 plot(cdfEmpiric, col = "#00bc83", lwd = 2, ylab = "F(x)", xlab = "x", main = paste0("Functia de repartitie pentru variabila aleatoare X distribuita normal N(μ = ", input$mu, ", σ² = ", input$sigma, ")"))
@@ -172,7 +175,7 @@ server <- function(input, output) {
         else if(input$distributie == "Exponentiala")
         {
             output$exponentialaPlot1 <- renderPlot({
-                X9 = rexp(input$n, rate = input$lambda_exponentiala)
+                X9 = rexp(input$n, rate = input$lambda_exponentiala) # generam n valori aleatoare din distributia exponentiala Exp(λ)
                 X9 = X9
                 cdfEmpiric = ecdf(X9)
                 plot(cdfEmpiric, col = "#00bc83", lwd = 2, ylab = "F(x)", xlab = "x", main = paste0("Functia de repartitie pentru variabila aleatoare X distribuita exponential Exp(λ = ", input$lambda_exponentiala, ")"))
@@ -203,7 +206,7 @@ server <- function(input, output) {
         else if(input$distributie == "Poisson")
         {
             output$PoissonPlot1 <- renderPlot({
-                X13 = rpois(input$n, lambda = input$lambda_poisson)
+                X13 = rpois(input$n, lambda = input$lambda_poisson) # generam n valori aleatoare din distributia Poisson Pois(λ)
                 X13 = X13
                 cdfEmpiric = ecdf(X13)
                 plot(cdfEmpiric, col = "#00bc83", lwd = 2, ylab = "F(x)", xlab = "x", main = paste0("Functia de repartitie pentru variabila aleatoare X distribuita Poisson Pois(λ = ", input$lambda_poisson, ")"))
@@ -234,7 +237,7 @@ server <- function(input, output) {
         else if(input$distributie == "Binomiala")
         {
             output$BinomialaPlot1 <- renderPlot({
-                X17 = rbinom(input$n, size = input$r, prob = input$p)
+                X17 = rbinom(input$n, size = input$r, prob = input$p) # generam n valori aleatoare din distributia binomiala Binom(r, p)
                 X17 = X17
                 cdfEmpiric = ecdf(X17)
                 plot(cdfEmpiric, col = "#00bc83", lwd = 2, ylab = "F(x)", xlab = "x", main = paste0("Functia de repartitie pentru variabila aleatoare X distribuita Binomial Binom(r = ", input$r, ", p = ", input$p, ")"))
@@ -266,6 +269,7 @@ server <- function(input, output) {
     
 }
 
+# pornire aplicatie
 shinyApp(ui = ui, server = server)
 
 

@@ -1,3 +1,97 @@
+# Cerințe:
+
+<br>
+
+## Problema 1
+
+Obiectivul acestui exercițiu este de a simula un vector aleator
+(*X*<sub>1</sub>, *X*<sub>2</sub>) repartizat uniform pe discul unitate
+*D*(1) (discul de centru (0, 0) și de rază 1). Densitatea acestuia este:
+
+$$f\_{(X_1,X_2)}(x_1, x_2) = \frac{1}{\pi} 1\_{D(1)}(x_1, x_2).$$
+
+Vom folosi două metode de simulare:
+
+1.  Justificați teoretic că putem simula un vector aleator repartizat
+    uniform pe pătratul \[−1, 1\]<sup>2</sup> plecând de la două v.a.
+    independente repartizate uniform pe segmentul \[−1, 1\].
+
+2.  Prin metoda acceptării și respingerii, simulați *N* = 1000 de puncte
+    independente repartizate uniform pe discul unitate *D*(1).
+    Reprezentați grafic punctele (*X*<sub>*i*</sub>, *Y*<sub>*i*</sub>)
+    din interiorul discului cu albastru și pe celelalte cu roșu.
+
+3.  Calculați media aritmetică a distanței care separă cele *N* puncte
+    de origine. Comparați rezultatul cu media teoretică a variabilei
+    corespunzătoare.
+
+4.  Plecând de la densitatea cuplului (*X*, *Y*), găsiți densitatea
+    variabilelor aleatoare *R* și *θ*.
+
+5.  Simulați *N* = 1000 de puncte prin această metodă și ilustrați
+    grafic aceste puncte (inclusiv conturul cercului).
+
+## Problema 2
+
+Construiți o aplicație Shiny în care să reprezentați grafic funcțiile de
+repartiție pentru următoarele variabile aleatoare:
+
+1.  $X, 3 + 2X, X^2, \sum\_{i=1}^{n} X_i, \sum\_{i=1}^{n} X_i^2$, unde
+    $X_1, X_2, \dots, X_n \overset{i.i.d.}{\sim} \mathcal{N}(0,1)$.
+
+2.  $X, 3 + 2X, X^2, \sum\_{i=1}^{n} X_i, \sum\_{i=1}^{n} X_i^2$, unde
+    $X_1, X_2, \dots, X_n \overset{i.i.d.}{\sim} \mathcal{N}(\mu,\sigma^2)$.
+
+3.  $X, 2 - 5X, X^2, \sum\_{i=1}^{n} X_i$, unde
+    $X_1, X_2, \dots, X_n \overset{i.i.d.}{\sim} Exp(\lambda)$.
+
+4.  $X, 3X + 2, X^2, \sum\_{i=1}^{n} X_i$, unde
+    $X_1, X_2, \dots, X_n \overset{i.i.d.}{\sim} Pois(\lambda)$.
+
+5.  $X, 5X + 4, X^3, \sum\_{i=1}^{n} X_i$, unde
+    $X_1, X_2, \dots, X_n \overset{i.i.d.}{\sim} Binom(r, p)$.
+
+## Problema 3
+
+Rezolvările trebuie să fie abordate atât din punct de vedere teoretic,
+cât și prin simulări.
+
+1.  Pe un plan sunt trasate liniile *y* = *n* (cu *n* = 0, ±1, ±2, …) și
+    un ac de lungime 1 este aruncat aleator pe acest plan. Arătați că
+    probabilitatea ca acul să intersecteze vreo linie este egală cu
+    $\frac{2}{\pi}$.
+
+2.  Pe același plan aruncăm o cruce formată din două ace perpendiculare.
+    Notăm cu *Z* numărul de intersecții ale crucii cu liniile de pe
+    plan. Arătați că:
+    $$E\left\[\frac{Z}{2}\right\] = \frac{2}{\pi}, \quad \text{și} \quad Var\left(\frac{Z}{2}\right) = \frac{3 - \sqrt{2}}{\pi} - \frac{4}{\pi^2}.$$
+
+3.  Considerați un plan cu linii trasate la distanță *d*. Un ac de
+    lungime *L*( \< *d*) este aruncat aleator. Arătați că probabilitatea
+    ca acul să intersecteze vreo linie este egală cu $\frac{2L}{\pi d}$.
+
+4.  Considerați un cerc *C* de diametru *d* centrat în mijlocul acului.
+    Probabilitatea ca acul să se intersecteze cu o linie aleatoare este
+    tot $\frac{2L}{\pi d}$.
+
+5.  Un plan este împărțit în grid cu linii la distanțe *d*<sub>1</sub>
+    și *d*<sub>2</sub> perpendiculare. Un ac de lungime
+    *L* \< min (*d*<sub>1</sub>, *d*<sub>2</sub>) este aruncat aleator.
+    Arătați că probabilitatea ca acesta să intersecteze gridul este:
+    $$\frac{L(2d_1 + 2d_2 - L)}{\pi d_1 d_2}.$$
+
+6.  Ce tip de strategie aleatoare a fost implementată: Las Vegas sau
+    Monte Carlo? Justificați și dați un exemplu de algoritm aleator din
+    cealaltă categorie.
+
+
+<br><hr><br>
+
+
+# Rezolvari:
+
+<br>
+
 # Problema 1
 
 ## Subpunctul 1: Generarea punctelor in patratul \[−1, 1\]<sup>2</sup>
